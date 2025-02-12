@@ -6,16 +6,14 @@ import com.busra.meditrack.dao.MedicationDao
 import com.busra.meditrack.database.AppDatabase
 import com.busra.meditrack.entity.Medication
 
-class MedicationRepository(application: Application) {
-    private val medicationDao = AppDatabase.getDatabase(application).medicationDao()
-    val allMedications: LiveData<List<Medication>> = medicationDao.getAllMedications()
+class MedicationRepository(private val dao: MedicationDao) {
+    val allMedications: LiveData<List<Medication>> = dao.getAllMedications()
 
     suspend fun insert(medication: Medication) {
-        medicationDao.insertMedication(medication)
+        dao.insert(medication)
     }
 
-    suspend fun update(medication: Medication) {
-        medicationDao.updateMedication(medication)
+    suspend fun delete(medication: Medication) {
+        dao.delete(medication)
     }
-
 }
